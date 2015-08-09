@@ -10,17 +10,17 @@
                         "numeric", "numeric"), header = TRUE, na.strings = "?")
 ## Checking Header
         head(power_data)
-                
-## Reading 2 days in Feb
-                power_data_feb <- subset(power_data, power_data$Date == "1/2/2007" | power_data$Date == "2/2/2007")
 
-## Plot 1 - Contruct Histogram
-                hist(power_data_feb$Global_active_power, col = "red", 
-                     main = "Global Active Power", xlab = "Global Active Power (kilowatts)")
-## Plot 1 - Save to PNG file
-                dev.copy(png, file = "plot1.png", width = 480, height = 480)
-<<<<<<< HEAD
-                dev.off()
-=======
-                dev.off()
->>>>>>> 2604c30c9e558a73352ea7a088a18bd34dceb983
+## Reading 2 days in Feb
+        power_data_feb <- subset(power_data, power_data$Date == "1/2/2007" | power_data$Date == "2/2/2007")
+
+## Converting Date/Time
+        date_time <- strptime(paste(power_data_feb$Date, power_data_feb$Time, sep = " "), "%d/%m/%Y %H:%M:%S")
+
+## Converting global active power to numeric
+        global_active_power <- as.numeric(power_data_feb$Global_active_power)
+
+## Plot2
+        png("plot2.png", width=480, height=480)
+        plot(date_time, global_active_power, type="l", xlab="", ylab="Global Active Power (kilowatts)")
+        dev.off()
